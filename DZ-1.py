@@ -1,4 +1,4 @@
-`import numpy as np
+import numpy as np
 import scipy.stats as st
 import pandas as pd
 import matplotlib.pyplot as plt
