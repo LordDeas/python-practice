@@ -1,69 +1,69 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-# Кількість траєкторій
+# Number of trajectories
 num_trajectories = 10
-# Кількість кроків
+# Number of steps
 num_steps = 50
-# Крок часу
+# Time step
 dt = 0.1
-# Інтенсивність Пуассонівського процесу
+# Poisson process intensity
 lambda_ = 0.1
 
-# Генерація траєкторій Вінерівського процесу
+# Generation of Wiener process trajectories
 wiener_trajectories = np.cumsum(np.sqrt(dt) * np.random.randn(num_steps, num_trajectories), axis=0)
 wiener_trajectories = np.vstack([np.zeros((1, num_trajectories)), wiener_trajectories])
 
-# Генерація траєкторій Пуассонівського процесу
+# Generation of Poisson process trajectories
 poisson_trajectories = np.zeros((num_steps , num_trajectories))
 for i in range(num_trajectories):
     n = np.random.poisson(lambda_ * dt, num_steps)
     poisson_trajectories[:, i] = np.cumsum(n)
 
-# Створення окремих графіків
+# Creating individual graphs
 
-# Графік для Вінерівського процесу
+# Graph for the Wiener process
 plt.figure(figsize=(10, 6))
 for i in range(num_trajectories):
     plt.plot(wiener_trajectories[:, i], label=f'Wiener Trajectory {i+1}', color='blue')
-plt.title('Вінерівські траєкторії')
-plt.xlabel('Час')
-plt.ylabel('Значення')
+plt.title('Wiener Trajectories')
+plt.xlabel('Time')
+plt.ylabel('Value')
 plt.legend()
 plt.grid(True)
 plt.show()
 
-# Графік для Пуассонівського процесу
+# Graph for Poisson process
 plt.figure(figsize=(10, 6))
 for i in range(num_trajectories):
     plt.plot(poisson_trajectories[:, i], label=f'Poisson Trajectory {i+1}', color='red', linestyle='--')
-plt.title('Пуассонівські траєкторії')
-plt.xlabel('Час')
-plt.ylabel('Кількість подій')
+plt.title('Poisson Trajectories')
+plt.xlabel('Time')
+plt.ylabel('Number of Events')
 plt.legend()
 plt.grid(True)
 plt.show()
 
-# Графік для порівняння
+# Graph for comparison
 plt.figure(figsize=(10, 6))
 for i in range(num_trajectories):
     plt.plot(wiener_trajectories[:, i], label=f'Wiener Trajectory {i+1}', color='blue')
     plt.plot(poisson_trajectories[:, i], label=f'Poisson Trajectory {i+1}', color='red', linestyle='--')
-plt.title('Порівняння Вінерівського та Пуассонівського процесів')
-plt.xlabel('Час')
-plt.ylabel('Значення / Кількість подій')
+plt.title('Comparison of Wiener and Poisson Processes')
+plt.xlabel('Time')
+plt.ylabel('Value / Number of Events')
 plt.legend()
 plt.grid(True)
 plt.show()
 
-# Параметри
-t = 252         # Кількість часових кроків
-X = 1           # Початкова ціна
-mu = 0.2        # Середнє очікуване зростання
-sigma = 0.4     # Волатильність
-simulations = 10 # Кількість симуляцій
+# Parameters
+t = 252             # Number of time steps
+X = 1               # Initial price
+mu = 0.2            # Average expected growth
+sigma = 0.4         # Volatility
+simulations = 10    # Number of simulations
 
-# Ітераційна схема
+# Iterative scheme
 def black_scholes_iteration(X, mu, sigma, t):
     dt = 1 / t
     prices = [X]
@@ -73,19 +73,19 @@ def black_scholes_iteration(X, mu, sigma, t):
         prices.append(new_price)
     return prices
 
-# Виконання симуляцій
+# Running simulations
 all_simulations = []
 for i in range(simulations):
     prices = black_scholes_iteration(X, mu, sigma, t)
     all_simulations.append(prices)
 
-# Побудова графіка
+# Graph construction
 plt.figure(figsize=(10, 6))
 for i, prices in enumerate(all_simulations):
-    plt.plot(prices, label=f'Симуляція {i+1}')
-plt.title('Цінові траєкторії за моделлю Black-Scholes')
-plt.xlabel('Часові кроки')
-plt.ylabel('Ціна')
+    plt.plot(prices, label=f'Simulation {i+1}')
+plt.title('Black-Scholes Price Trajectories')
+plt.xlabel('Time Steps')
+plt.ylabel('Price')
 plt.legend(loc='upper left')
 plt.grid(True)
 plt.show()

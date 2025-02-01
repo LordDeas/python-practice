@@ -17,7 +17,7 @@ def Chebyshev_inequality(n, epsilon, true_value):
     u_estimate = Monte_Carlo(n)
     variance = np.var([u(np.random.uniform(0, 1), np.random.uniform(0, 1 - x)) for x in np.random.uniform(0, 1, size=n)])
     probability = variance / (n * epsilon**2)
-    print(f"Ймовірність відхилення від справжнього значення більше, ніж {epsilon}: {probability:.4f}")
+    print(f"The probability of deviation from the true value is greater than {epsilon}: {probability:.4f}")
     return probability
 
 true_value = 0.4**2 + 0.2**2
@@ -28,6 +28,6 @@ Chebyshev_inequality(n, epsilon, true_value)
 
 n = 1000
 u_estimate = Monte_Carlo(n)
-print(f"Оцінене значення u(0.4, 0.2) за допомогою методу Монте-Карло: {u_estimate:.4f}")
+print(f"Estimated value of u(0.4, 0.2) using the Monte Carlo method: {u_estimate:.4f}")
 
 

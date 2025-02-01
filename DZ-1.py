@@ -48,14 +48,14 @@ class Pearson:
         self.is_value = pass_value
         self.critical_value = critical_value
 
-    # знаходження критичного значення
+    # finding the critical value
     def __get_critical_value():
         df = int(N - 2)
         
         if not is_value:
             critical_value = st.chi2.ppf(1-critical_value, df = df)
 
-    # метод знаходження оптимального N - кількісті інтервалів
+    # method for finding the optimal N - number of intervals
     def __get_optimal_N():
         for N in range(1, n):
             output = N
@@ -65,7 +65,7 @@ class Pearson:
         self.N = output - 1
         self.interval_lenght = 1/self.N
 
-    # розрахунок статистики
+    # calculation of statistics
     def __calculate_chi_squared():
         pearson_sum = 0
 
@@ -83,20 +83,20 @@ class Pearson:
 
     def __compare_chi_squared():
         if pearson_sum < critical_value:
-            return "Приймаємо гіпотезу H_0 - згенеровані величини не суперечать рівномірному розподілу на (0,1)"
+            return "We accept the hypothesis H_0 - the generated values do not contradict the uniform distribution on (0,1)"
         else: 
-            return "Відхиляємо гіпотезу H_0 на користь альтернативної, суперечить рівномірному розподілу на (0,1)"
+            return "We reject the hypothesis H_0 in favor of the alternative, contradicting the uniform distribution on (0,1)"
 
 
     def test():
         __get_optimal_N()
-        print("Оптимальне значення N = ", str(N))
+        print("Optimal value N = ", str(N))
         
         __get_critical_value()  
-        print("Критичне значення = ", str(round(critical_value, 2)) + ", кількість степенів свободи = ", str(df))   
+        print("Critical value = ", str(round(critical_value, 2)) + ", number of degrees of freedom = ", str(df))   
         
         __calculate_chi_squared()
-        print("Значення статистики Пірсона: ", str(round(pearson_sum, 3)))
+        print("The meaning of Pearson's statistic: ", str(round(pearson_sum, 3)))
         
         message = __compare_chi_squared()
         print(message)

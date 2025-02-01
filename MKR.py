@@ -7,12 +7,12 @@ def inverse_cdf(u):
     else:
         return 1 - np.sqrt(2 - 2 * u)
 
-# Генеруємо 10 випадкових значень
+# Generate 10 random values
 random_values = [inverse_cdf(np.random.rand()) for _ in range(10)]
 
-# Проводимо тест Колмогорова-Смірнова
+# Perform Kolmogorov-Smirnov test
 D, p_value = kstest(random_values, 'uniform')
 
-# Виводимо результат тесту
+# Output the test result
 print("D =", D)
 print("p-value =", p_value)
